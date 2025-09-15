@@ -1,0 +1,3 @@
+- Create en environment file with name ".env" in the project root
+- Copy env variables from configs/.env.sample
+- When you run test on local machine, config env vars fit your desire, like HEADLESS or WORKERS

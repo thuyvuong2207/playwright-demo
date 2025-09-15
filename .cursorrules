@@ -1,0 +1,249 @@
+#  Playwright Demo VMT - Cursor Rules
+
+## Project Context
+This is a comprehensive Playwright-based UI automation framework for testing the application across multiple modules. The framework follows Page Object Model (POM) pattern with TypeScript and includes API testing, fixtures, utilities, and multi-environment support.
+
+## Code Quality Standards
+
+### TypeScript Best Practices
+- Always use TypeScript with proper type definitions
+- Define interfaces for complex objects (ICreateProduct, IFilterProducts, etc.)
+- Use proper return types for all functions
+- Leverage type safety for better maintainability
+
+### Page Object Model (POM) Rules
+- Separate UI locators from page logic
+- UI elements go in `src/pom/ui/` with `-ui.ts` suffix
+- Page classes go in `src/pom/pages/` with `-page.ts` suffix
+- All pages must extend from appropriate base classes (BasePage, MkBasePage, etc.)
+- Use descriptive names following the existing naming convention:
+  - `btn` for buttons
+  - `txt` for text inputs
+  - `ddl` for dropdowns
+  - `lbl` for labels
+  - `tbl` for tables
+
+### Test Structure
+- Tests must be organized by module under `tests/` directory
+- Each test file should have `.spec.ts` suffix
+- Use descriptive test names that explain the behavior being tested
+- Group related tests using `test.describe()` blocks
+- Always include proper assertions using custom assertion functions
+
+### Fixtures and Setup
+- Use appropriate fixtures for each module (mk-home-fixture, service-fixture, etc.)
+- Leverage fixture pattern for test setup and teardown
+- Pass page objects through fixtures rather than creating them in tests
+
+## File Organization Rules
+
+### Directory Structure
+```
+src/
+├── api/           # API testing utilities
+├── base/          # Base classes (BasePage, BaseComponent, etc.)
+├── fixtures/      # Test fixtures by module
+├── pom/
+│   ├── pages/     # Page object models
+│   └── ui/        # UI element definitions
+├── som/           # Service object models
+├── types/         # TypeScript interfaces
+└── utils/         # Utility functions
+
+tests/
+├── marketing/     # Marketing module tests
+├── service/       # Service module tests
+├── delivery/      # Delivery module tests
+├── settings/      # Settings module tests
+├── e2e/          # End-to-end tests
+└── global/       # Cross-module tests
+```
+
+### Naming Conventions
+- Page files: `module-feature-page.ts` (e.g., `mk-products-allproducts-page.ts`)
+- UI files: `module-feature-ui.ts` (e.g., `mk-products-allproducts-ui.ts`)
+- Test files: `module.feature.spec.ts` (e.g., `mk.allproducts.spec.ts`)
+- Constants should be UPPER_CASE with descriptive names
+
+## Code Implementation Guidelines
+
+### Base Class Usage
+- Always extend from appropriate base classes:
+  - `MkBasePage` for marketing pages
+  - `ServiceBasePage` for service pages  
+  - `DlBasePage` for delivery pages
+  - `SettingPage` for settings pages
+- Use `super.checkIn()` in page checkIn methods
+- Leverage base class utilities (click, fill, assertVisible, etc.)
+
+### Widget and Component Usage
+- Use existing widgets for complex UI elements:
+  - `DropdownList` for dropdowns with search/multi-select
+  - `Table` for data tables
+  - `DatePicker` for date selection
+  - `Popup` for modal dialogs
+- Create reusable components for repeated UI patterns
+
+### Locator Strategies
+- Prefer data-testid attributes when available
+- Use XPath for complex element selection
+- Maintain locator readability and maintainability
+- Escape special characters in XPath expressions
+- Group related locators in UI constant objects
+
+### Error Handling and Logging
+- Use the centralized logger: `import logger from "src/utils/logger"`
+- Log important test steps and data
+- Use appropriate log levels (info, debug, error)
+- Include meaningful error messages in assertions
+- Handle expected failures gracefully
+
+### Async/Await Patterns
+- Always use async/await for Playwright operations
+- Use proper awaiting for page interactions
+- Include timeouts where appropriate
+- Handle page load states properly
+
+## Testing Best Practices
+
+### Test Data Management
+- Use interfaces for test data structures
+- Store test data in `data/` directory when needed
+- Use factories or builders for complex test data
+- Avoid hardcoded values; use constants or configuration
+
+### Assertions
+- Use custom assertion functions from `src/utils/assertions.ts`:
+  - `assertEquals()` for exact matches
+  - `assertGreater()` for numeric comparisons
+  - `assertArrayMatches()` for array comparisons
+- Always include meaningful failure messages
+- Verify both positive and negative test cases
+
+### Test Independence
+- Each test should be independent and able to run in isolation
+- Use proper setup and cleanup in fixtures
+- Avoid dependencies between test cases
+- Reset state between tests when necessary
+
+### Parallel Execution
+- Design tests to be parallel-safe
+- Avoid shared state between parallel tests
+- Use unique test data to prevent conflicts
+- Consider resource limitations for parallel execution
+
+## Module-Specific Guidelines
+
+### Marketing Module
+- Use `mk-home-fixture` for marketing tests
+- Follow naming pattern: `mk-` prefix for marketing components
+- Handle product filtering, pagination, and CRUD operations
+- Include location-based filtering where applicable
+
+### Service Module
+- Use service-specific fixtures and base pages
+- Handle service request workflows
+- Include technician and customer management
+- Test scheduling and appointment functionality
+
+### Delivery Module
+- Use delivery fixtures with task management
+- Handle pickup/dropoff workflows
+- Include driver assignment and tracking
+- Test route optimization features
+
+### Settings Module
+- Handle user and workspace management
+- Test integration configurations
+- Include billing and subscription management
+- Handle multi-tenant scenarios
+
+## Environment and Configuration
+
+### Environment Variables
+- Use `.env` file for local configuration
+- Reference `configs/.env.sample` for required variables
+- Support multiple environments (dev, int, prod)
+- Configure headless mode, workers, and screen size appropriately
+
+### Browser Configuration
+- Use Playwright configuration in `playwright.config.ts`
+- Support multiple browsers and devices
+- Configure proper timeouts and retries
+- Enable tracing and video recording for debugging
+
+### CI/CD Integration
+- Ensure tests work in containerized environments
+- Support Bitbucket Pipelines configuration
+- Include proper reporting and notifications
+- Handle cloud execution requirements
+
+## Development Tools
+
+### Code Formatting
+- Use Biome.js for code formatting and linting
+- Follow the rules defined in `biome.json`
+- Use Husky pre-commit hooks for quality assurance
+- Fix formatting issues before committing
+
+### VSCode Integration
+- Use custom snippets from `configs/snippet.sample.json`
+- Configure Biome extension for real-time formatting
+- Use TypeScript for better IntelliSense
+- Leverage Playwright extension for test debugging
+
+### UI Generator
+- Use `npx ts-node src/utils/ui-generator.ts` for creating UI files
+- Generate UI files from existing page classes
+- Use `-r` flag to replace existing files
+- Use `-u` flag to update existing files with new components
+
+## Performance Considerations
+
+### Execution Optimization
+- Use appropriate wait strategies
+- Minimize unnecessary page loads and navigations
+- Leverage browser context reuse where possible
+- Configure optimal worker count for parallel execution
+
+### Resource Management
+- Clean up resources after tests
+- Handle browser context and page lifecycle properly
+- Monitor memory usage in long-running test suites
+- Use appropriate timeouts to prevent hanging tests
+
+### Debugging and Monitoring
+- Use Playwright trace viewer for debugging
+- Capture screenshots on test failures
+- Include detailed logging for troubleshooting
+- Monitor test execution times and optimize slow tests
+
+## Documentation Requirements
+
+### Code Documentation
+- Include JSDoc comments for complex functions
+- Document public APIs and interfaces
+- Provide examples for reusable components
+- Maintain up-to-date README files
+
+### Test Documentation
+- Use descriptive test names that explain the scenario
+- Include comments for complex test logic
+- Document test data requirements and setup
+- Maintain test case documentation for manual reference
+
+## Security and Compliance
+
+### Sensitive Data Handling
+- Never commit credentials or API keys
+- Use environment variables for sensitive configuration
+- Sanitize logs to remove sensitive information
+- Follow security best practices for test data
+
+### Access Control
+- Implement proper role-based testing
+- Use appropriate user profiles for different test scenarios
+- Handle multi-tenant scenarios securely
+- Test permission boundaries and access controls
+
+Remember: This framework serves multiple teams and modules. Always consider the impact of changes on other modules and maintain backward compatibility when possible. Follow the established patterns and contribute to the framework's improvement through proper documentation and code reviews. 

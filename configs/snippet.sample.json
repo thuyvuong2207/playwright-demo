@@ -1,0 +1,39 @@
+{
+    "function check": {
+        "prefix": "checkIn",
+        "body": [
+            "async checkIn(){",
+            "  super.checkIn();$1",
+            "}\nimport logger from \"src/utils/logger\";"
+        ],
+        "description": "Base checkIn function"
+    },
+    "function import base test": {
+        "prefix": "ipbasetestp",
+        "body": [
+            "import { test } from \"src/fixtures/base-fixtures\";\nimport logger from \"src/utils/logger\";\nimport { Profile, Role } from \"src/types/profile\";\n"
+        ],
+        "description": "Prepare imports for base test"
+    },
+    "function start base test": {
+        "prefix": "stbasetest",
+        "body": [
+            "test(\"$1\", async ({ basePage }) => {\n$2\n})\n"
+        ],
+        "description": "Start a base test"
+    },
+    "function import marketing test": {
+        "prefix": "ipmktestp",
+        "body": [
+            "import { test } from \"src/fixtures/marketing/mk-login-fixture\";\nimport logger from \"src/utils/logger\";\nimport { Profile, Role } from \"src/types/profile\";\n"
+        ],
+        "description": "Prepare imports for marketing test"
+    },
+    "function start marketing test": {
+        "prefix": "stmktest",
+        "body": [
+            "test(\"$1\", async ({ loginPage }) => {\n$2\n})\n"
+        ],
+        "description": "Start a marketing test"
+    }
+}
