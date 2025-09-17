@@ -231,91 +231,91 @@ export default class BasePage extends BaseComponent {
     async clearCookies() {
         await this.getPage().context().clearCookies();
     }
-    async getAccessTokenFromIndexedDB() {
-        const _accessToken = await this.getPage().evaluate(() => {
-            return new Promise<string>((resolve, reject) => {
-                function fetchData(db: any) {
-                    const transaction = db.transaction(
-                        "firebaseLocalStorage",
-                        "readonly"
-                    );
-                    const store = transaction.objectStore(
-                        "firebaseLocalStorage",
-                        {
-                            keyPath: "fbase_key",
-                        }
-                    );
-                    const request = store.getAll();
-                    request.onsuccess = function (event: any) {
-                        const data = event.target.result;
-                        const accessToken =
-                            data[0].value.stsTokenManager.accessToken;
-                        console.log(accessToken);
-                        resolve(accessToken);
-                    };
-                    request.onerror = function (event: any) {
-                        reject(event.target.error);
-                    };
-                }
+    // async getAccessTokenFromIndexedDB() {
+    //     const _accessToken = await this.getPage().evaluate(() => {
+    //         return new Promise<string>((resolve, reject) => {
+    //             function fetchData(db: any) {
+    //                 const transaction = db.transaction(
+    //                     "firebaseLocalStorage",
+    //                     "readonly"
+    //                 );
+    //                 const store = transaction.objectStore(
+    //                     "firebaseLocalStorage",
+    //                     {
+    //                         keyPath: "fbase_key",
+    //                     }
+    //                 );
+    //                 const request = store.getAll();
+    //                 request.onsuccess = function (event: any) {
+    //                     const data = event.target.result;
+    //                     const accessToken =
+    //                         data[0].value.stsTokenManager.accessToken;
+    //                     console.log(accessToken);
+    //                     resolve(accessToken);
+    //                 };
+    //                 request.onerror = function (event: any) {
+    //                     reject(event.target.error);
+    //                 };
+    //             }
 
-                const indexedDB = window.indexedDB;
-                const request = indexedDB.open("firebaseLocalStorageDb", 1);
-                request.onsuccess = function (event: any) {
-                    const db = event.target.result;
-                    fetchData(db);
-                };
-                request.onerror = function (event: any) {
-                    reject(event.target.error);
-                };
-            });
-        });
+    //             const indexedDB = window.indexedDB;
+    //             const request = indexedDB.open("firebaseLocalStorageDb", 1);
+    //             request.onsuccess = function (event: any) {
+    //                 const db = event.target.result;
+    //                 fetchData(db);
+    //             };
+    //             request.onerror = function (event: any) {
+    //                 reject(event.target.error);
+    //             };
+    //         });
+    //     });
 
-        return _accessToken;
-    }
-    async setAccessTokenToIndexedDB(accessToken: string) {
-        await this.getPage().evaluate((accessToken) => {
-            return new Promise<void>((resolve, reject) => {
-                function fetchData(db: any) {
-                    const transaction = db.transaction(
-                        "firebaseLocalStorage",
-                        "readwrite"
-                    );
-                    const store = transaction.objectStore(
-                        "firebaseLocalStorage",
-                        {
-                            keyPath: "fbase_key",
-                        }
-                    );
-                    const request = store.getAll();
-                    request.onsuccess = function (event: any) {
-                        const data = event.target.result;
-                        data[0].value.stsTokenManager.accessToken = accessToken;
-                        const updateRequest = store.put(data[0]);
-                        updateRequest.onsuccess = function () {
-                            resolve();
-                        };
-                        updateRequest.onerror = function (event: any) {
-                            reject(event.target.error);
-                        };
-                    };
-                    request.onerror = function (event: any) {
-                        reject(event.target.error);
-                    };
-                }
+    //     return _accessToken;
+    // }
+    // async setAccessTokenToIndexedDB(accessToken: string) {
+    //     await this.getPage().evaluate((accessToken) => {
+    //         return new Promise<void>((resolve, reject) => {
+    //             function fetchData(db: any) {
+    //                 const transaction = db.transaction(
+    //                     "firebaseLocalStorage",
+    //                     "readwrite"
+    //                 );
+    //                 const store = transaction.objectStore(
+    //                     "firebaseLocalStorage",
+    //                     {
+    //                         keyPath: "fbase_key",
+    //                     }
+    //                 );
+    //                 const request = store.getAll();
+    //                 request.onsuccess = function (event: any) {
+    //                     const data = event.target.result;
+    //                     data[0].value.stsTokenManager.accessToken = accessToken;
+    //                     const updateRequest = store.put(data[0]);
+    //                     updateRequest.onsuccess = function () {
+    //                         resolve();
+    //                     };
+    //                     updateRequest.onerror = function (event: any) {
+    //                         reject(event.target.error);
+    //                     };
+    //                 };
+    //                 request.onerror = function (event: any) {
+    //                     reject(event.target.error);
+    //                 };
+    //             }
 
-                const indexedDB = window.indexedDB;
-                const request = indexedDB.open("firebaseLocalStorageDb", 1);
-                request.onsuccess = function (event: any) {
-                    const db = event.target.result;
-                    fetchData(db);
-                };
-                request.onerror = function (event: any) {
-                    reject(event.target.error);
-                };
-            });
-        }, accessToken);
-        logger.info("Set access token to indexedDB");
-    }
+    //             const indexedDB = window.indexedDB;
+    //             const request = indexedDB.open("firebaseLocalStorageDb", 1);
+    //             request.onsuccess = function (event: any) {
+    //                 const db = event.target.result;
+    //                 fetchData(db);
+    //             };
+    //             request.onerror = function (event: any) {
+    //                 reject(event.target.error);
+    //             };
+    //         });
+    //     }, accessToken);
+    //     logger.info("Set access token to indexedDB");
+    // }
     async storeState() {
         this.getContext().storageState({
             path: "./state.json",
