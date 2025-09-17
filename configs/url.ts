@@ -1,3 +1,4 @@
 export const BaseURL = {
-	BS_INT_URL: "",
+	DEV_URL: "",
+	PROD_URL: "",
 };

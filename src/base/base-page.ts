@@ -20,22 +20,13 @@ export default class BasePage extends BaseComponent {
     protected _url!: string;
     protected _requests: Request[] = [];
     public BS_URL: string;
-    public BS_API_URL: string;
-    public CF_URL: string;
-    public CS_URL: string;
     public data: any;
     constructor(page: Page | BasePage, options?: IRoleProfile) {
         super(page, options);
         if (process.env.ENV === "dev") {
-            this.BS_URL = process.env.BS_DEV_URL || BaseURL.BS_DEV_URL;
-            this.BS_API_URL = process.env.BS_API_DEV_URL || BaseURL.BS_API_DEV_URL;
-            this.CF_URL = process.env.CF_DEV_URL || BaseURL.CF_DEV_URL;
-            this.CS_URL = process.env.CS_DEV_URL || BaseURL.CS_DEV_URL;
+            this.BS_URL = process.env.BS_DEV_URL || BaseURL.DEV_URL;
         } else {
-            this.BS_URL = process.env.BS_INT_URL || BaseURL.BS_INT_URL;
-            this.BS_API_URL = process.env.BS_API_INT_URL || BaseURL.BS_API_INT_URL;
-            this.CF_URL = process.env.CF_INT_URL || BaseURL.CF_INT_URL;
-            this.CS_URL = process.env.CS_INT_URL || BaseURL.CS_INT_URL;
+            this.BS_URL = process.env.BS_INT_URL || BaseURL.PROD_URL;
         }
     }
 

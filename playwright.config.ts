@@ -44,41 +44,6 @@ export default defineConfig<Credentials>({
     /* Configure projects for major browsers */
     projects: [
         {
-            name: "marketing",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/ui\/marketing/,
-        },
-        {
-            name: "delivery",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/ui\/delivery/,
-        },
-        {
-            name: "qmetry",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/global\/qmetry/,
-        },
-        {
-            name: "account",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/ui\/account/,
-        },
-        {
-            name: "cova",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/ui\/cova/,
-        },
-        {
-            name: "e2e",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/ui\/e2e/,
-        },
-        {
-            name: "demo",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /tests\/ui\/demo/,
-        },
-        {
             name: "wordpress",
             use: { ...devices["Desktop Chrome"] },
             testMatch: /tests\/wp/,

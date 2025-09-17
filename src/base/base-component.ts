@@ -186,7 +186,6 @@ export default class BaseComponent {
     protected _page: Page;
     protected role: Role = Role.NOROLE;
     protected profile: Profile = Profile.NOPROFILE;
-    protected hasCanfleet: boolean;
     private context: BrowserContext;
     async checkIn(): Promise<void> { }
     /**
@@ -196,7 +195,6 @@ export default class BaseComponent {
     constructor(page: Page | BaseComponent, options?: IRoleProfile) {
         this._page = page instanceof BaseComponent ? page.getPage() : page;
         // this.inherit(page, options);
-        this.hasCanfleet = options?.hasCanfleet || false;
         this.context = this._page.context();
         if (options?.role && options.profile) {
             this.setRoleProfile(options);
@@ -205,22 +203,6 @@ export default class BaseComponent {
             this.profile = page.getProfile();
         }
     }
-    // inherit(page: Page | BaseComponent, options?: IRoleProfile) {
-    //     if (options?.role && options.profile) {
-    //         logger.debug(
-    //             `Inheriting role and profile from options: ${options.role} - ${options.profile}`
-    //         );
-    //         this.setRoleProfile(options);
-    //     } else {
-    //         if (page instanceof BaseComponent) {
-    //             logger.info(
-    //                 `Inheriting role and profile from page: ${page.getProfile()} - ${page.getRole()}`
-    //             );
-    //             this.role = page.getRole();
-    //             this.profile = page.getProfile();
-    //         }
-    //     }
-    // }
     setProfile(profile: Profile) {
         this.profile = profile;
     }
@@ -235,9 +217,6 @@ export default class BaseComponent {
         }
         if (params.profile) {
             this.profile = params.profile;
-        }
-        if (params.hasCanfleet) {
-            this.hasCanfleet = params.hasCanfleet;
         }
     }
     getRole(): Role {
