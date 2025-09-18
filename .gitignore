@@ -75,9 +75,3 @@ configs/bitbucket-local-runner/local*/atlassian-bitbucket-pipelines-runner/*
 .env
 .qodo
 .yarn
-.cursor/rules/core-architecture.mdc
-.cursor/rules/CURSOR_RULES.md
-.cursor/rules/dependencies-and-tools.mdc
-.cursor/rules/framework-overview.mdc
-.cursor/rules/testing-guidelines.mdc
-.cursor/rules/testing-patterns.mdc
