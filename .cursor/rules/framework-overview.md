@@ -20,5 +20,4 @@ This is a comprehensive Playwright UI automation framework for testing the Bread
 
 ### Related Documentation
 - [Core Architecture Components](./core-architecture.mdc) – Detailed technical architecture
-- [Environment Configuration] – Environment setup details
-- [Module Organization] – Application modules breakdown
+- [Environment Configuration](./environment-configuration) – Environment setup details

@@ -1,4 +1,4 @@
-Playwright Framework - Coding Patterns and Best Practices
+# Playwright Framework - Coding Patterns and Best Practices
 
 ## 1. Page Object Model (POM) Implementation
 
@@ -24,7 +24,7 @@ export default class ExamplePage extends BreadstackBasePage {
   }
 }
 
-### Reusable widget template
+### 2. Reusable widget template
 export default class ExampleWidget extends Widget {
   private button: Locator;
   private input: Locator;

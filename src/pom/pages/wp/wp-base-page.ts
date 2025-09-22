@@ -22,14 +22,14 @@ interface IWpHeader {
     logoText?: string;
 }
 class WpHeader extends BaseComponent {
-    private logo: Locator;
-    private txtSearch: Locator;
-    private btnSearch: Locator;
-    private btnCloseSearch: Locator;
-    private btnCart: Locator;
-    private btnMenu: Locator;
+    private readonly logo: Locator;
+    private readonly txtSearch: Locator;
+    private readonly btnSearch: Locator;
+    private readonly btnCloseSearch: Locator;
+    private readonly btnCart: Locator;
+    private readonly btnMenu: Locator;
     // private dropdownList: DropdownList
-    private btnLogin: Locator; 
+    private readonly btnLogin: Locator; 
     constructor(page: Page | BasePage) {
         super(page);
         this.txtSearch = this.locator(WP_HEADER_UI.txtSearch);
