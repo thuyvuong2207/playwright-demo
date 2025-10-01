@@ -78,10 +78,10 @@ tests/
 
 ### Widget and Component Usage
 - Use existing widgets for complex UI elements:
-  - `DropdownList` for dropdowns with search/multi-select
-  - `Table` for data tables
-  - `DatePicker` for date selection
-  - `Popup` for modal dialogs
+- `DropdownList` for dropdowns with search/multi-select
+- `Table` for data tables
+- `DatePicker` for date selection
+- `Popup` for modal dialogs
 - Create reusable components for repeated UI patterns
 
 ### Locator Strategies
